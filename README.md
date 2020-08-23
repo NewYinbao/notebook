@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-08-19 08:51:28
- * @LastEditTime: 2020-08-23 19:54:37
+ * @LastEditTime: 2020-08-23 20:30:50
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \notebook\README.md
@@ -104,7 +104,7 @@ o) 是否遵循某种设计模式
 ├── src                         
 │   ├── watcherCalibrate.py                // 主要函数
 │   └── main.py                            // 测试程序
-├── config                                 // 数据目录,以时间命名
+├── config
 │   ├── Coefficients.txt                   // 相机内参
 │   └── Extrinsicparam.txt                 // 相机外参
 └── asserts                                // 其他材料，如棋盘格图片

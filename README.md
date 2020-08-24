@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-08-01 08:51:28
- * @LastEditTime: 2020-08-24 21:40:09
+ * @LastEditTime: 2020-08-24 21:50:20
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: ./README.md
@@ -65,7 +65,8 @@
 利用 Unreal Engine 4 搭建的仿真环境，具备以下功能：  
 
 - 渲染机器人各个相机的图像及对应的训练标注。  
-通过更改光照纹理，以较低成本实现数据扩充与迁移。  
+
+- 通过更改光照纹理，以较低成本实现数据扩充与迁移。  
 
 - 设置机器人关键点，或者键盘操控机器人，生成不同视角图像。  
 

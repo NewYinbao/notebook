@@ -1,30 +1,55 @@
 <!--
  * @Author: your name
  * @Date: 2020-08-01 08:51:28
- * @LastEditTime: 2020-08-23 23:31:38
+ * @LastEditTime: 2020-08-24 21:40:09
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: ./README.md
 -->
 
 
-# 视觉部分  
+# HITCSC：视觉感知组代码示例
+
+<tab>本项目为哈尔滨工业大学 HITCSC 队伍在 RM AI Challenge 2020 比赛中视觉感知组组代码示例。
 
 ## 1 硬件方案  
 
 机器人和哨岗的硬件架构如图 1 所示。  
 ![图1](./fig/总体硬件框架.png)  
 
-具体的视觉传感器参数如下：  
+具体的视觉传感器及处理器参数如下：  
+
 - **相机** : USB 相机 OV4689  
-    机器人上共安装了 7 个 USB 相机，包括云台顶部安装 1 个 90°视场的云台相机，底盘四周安装 6 个 120°视场的环视相机，以实现车体全视场覆盖。哨岗使用 2 个120°视场的 USB 相机。相机的其它参数如表 2 所示。  
-    ![相机参数](./fig/相机参数.png)
+
+    机器人上共安装了 7 个 USB 相机，包括云台顶部安装 1 个 90°视场的云台相机，底盘四周安装 6 个 120°视场的环视相机，以实现车体全视场覆盖。哨岗使用 2 个120°视场的 USB 相机。相机的其它参数如表 1 所示。  
+
+    <p align="center">表 1 相机参数</p>
+    <table align="center">
+        <tr>
+            <td>传感器型号</td>
+            <td>帧率/fps</td>
+            <td>图幅/Pixel</td>
+            <td>快门</td>
+            <td>接口</td>
+        </tr>
+        <tr>
+            <td rowspan="2">OV4689</td>
+            <td>260 (车载)</td>
+            <td>640*360 (车载)</td>
+            <td rowspan="2">电子卷帘快门</td>
+            <td rowspan="2">USB 2.0</td>
+        </tr>
+        <tr>
+            <td>120 (哨岗)</td>
+            <td>1280*720 (哨岗)</td>
+        </tr>
+    </table>
     
 - **车载处理器** ： NVIDIA Jetson AGX Xavier
     * 8 核 ARM v8.2 CPU，运行频率为 2.2656GHz
     * 512 核 Volta GPU，带 Tensor Core，可提供 11 TFLOPS(FP16) 算力
     * 2 个 NVDLA 引擎，可提供 5 TFLOPS(FP16) 算力
-- **基站处理器** ：  
+- **哨岗处理器** ：  
     * AMD R7 3700X CPU，8 核 16 线程，运行频率 3.6GHz
     * NVIDIA GTX 1080TI GPU，可提供 11.34 TFLOPS(FP32) 算力
 
@@ -39,7 +64,10 @@
 
 利用 Unreal Engine 4 搭建的仿真环境，具备以下功能：  
 
-- 渲染机器人各个相机的图像及对应的训练标注。通过更改光照纹理，以较低成本实现数据扩充与迁移。  
+- 渲染机器人各个相机的图像及对应的训练标注。  
+通过更改光照纹理，以较低成本实现数据扩充与迁移。  
+
+- 设置机器人关键点，或者键盘操控机器人，生成不同视角图像。  
 
 - 视觉仿真环境还可以联合其他仿真环境，实现比赛可视化。  
 
@@ -81,13 +109,10 @@
 ### 2.3 哨岗检测算法  
 
 - **模型设计**  
-哨岗检测算法基于 YOLOv3 设计，并进行适当的裁剪和优化；  
-保留了 YOLOv3 的三个尺度检测层；  
-添加了 SPP 层减少远近目标尺度变化带来的影响。  
-速度 60FPS。  
+哨岗检测算法基于 YOLOv3 设计，并进行适当的裁剪和优化；保留了 YOLOv3 的三个尺度检测层；添加了 SPP 层减少远近目标尺度变化带来的影响。速度 60 FPS。  
 
 - **检测装甲板朝向**  
-将不同方向的装甲板分别编码（前后左右），由坐标转换估计机器人和不同装甲板的位置信息，然后通过装甲板和机器人匹配，估计出敌方机器人的朝向。最后，将哨岗估计的机器人位姿信息与车载相机估计的位姿信息融合，得到最终的机器人位姿信息。
+将不同方向的装甲板分别编码（前后左右）；由坐标转换估计机器人和不同装甲板的位置信息，然后通过装甲板和机器人匹配，估计出敌方机器人的朝向。最后，将哨岗估计的机器人位姿信息与车载相机估计的位姿信息融合，得到最终的机器人位姿信息。
 
 - **快速标定算法**  
 通过在场地上放置的视觉标签进行快速标定，算法已经在仿真环境中测试。
@@ -141,11 +166,6 @@ python .src/mian.py --mode cameraLocation
 
 ![cameraLocation](./fig/测试_哨岗相机外参标定_Trim.gif)
 
+## 开源协议
 
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
-
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
+本代码遵循[MIT](https://choosealicense.com/licenses/mit/)协议。  
